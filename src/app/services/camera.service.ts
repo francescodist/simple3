@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Camera } from "@ionic-native/camera/ngx";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -7,10 +8,10 @@ import { Camera } from "@ionic-native/camera/ngx";
 export class CameraService {
   options: CameraOptions;
 
-  constructor(private camera: Camera) {
+  constructor(private camera: Camera, private http: HttpClient) {
     this.options = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     };
@@ -27,5 +28,17 @@ export class CameraService {
         sourceType
       });
     } catch (e) {}
+  }
+
+  public ocrPicture(imageData: string) {
+    const APIKEY = "8b193efa4888957";
+    const base64Image = "data:image/jpeg;base64," + imageData;
+    let data =
+      encodeURIComponent("base64Image") + "=" + encodeURIComponent(base64Image);
+    return this.http.post("https://api.ocr.space/parse/image", data, {
+      headers: new HttpHeaders()
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .set("apikey", APIKEY)
+    });
   }
 }
