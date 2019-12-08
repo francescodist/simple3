@@ -11,7 +11,7 @@ export class SimpleService {
 
   public getSimplifiedText(text: string): Observable<SimplifiedResult> {
     const params = new HttpParams()
-      .set("textarea", text)
+      .set("textaraea", text)
       .set("type", "json");
     const headers = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*");
