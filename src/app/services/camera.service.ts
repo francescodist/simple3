@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Camera } from "@ionic-native/camera/ngx";
+import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({

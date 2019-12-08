@@ -8,12 +8,13 @@
 
 <ion-content padding>
   <ion-textarea
+    [(ngModel)]="text"
     placeholder="Inserisci il testo da semplificare..."
   ></ion-textarea>
 </ion-content>
 
 <ion-footer class="button-container">
-  <ion-button expand="block">
+  <ion-button (click)="simplifyText()" expand="block">
     Semplifica
   </ion-button>
 </ion-footer>

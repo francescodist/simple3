@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SimplifiedResult } from "../models/simplified-term";
 
@@ -13,8 +13,11 @@ export class SimpleService {
     const params = new HttpParams();
     params.append("textarea", text);
     params.append("type", "json");
+    const headers = new HttpHeaders();
+    headers.append("Access-Control-Allow-Origin", "*");
     return this.http.get<SimplifiedResult>(
-      "http://www.math.unipa.it/simplehealth/simple/service/eng"
+      "http://www.math.unipa.it/simplehealth/simple/service/ita",
+      { headers }
     );
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { SimpleService } from "../services/simple.service";
 
 @Component({
   selector: "app-text",
@@ -6,5 +7,13 @@ import { Component } from "@angular/core";
   styleUrls: ["text.page.scss"]
 })
 export class TextPage {
-  constructor() {}
+  public text = "";
+  constructor(private simpleService: SimpleService) {}
+
+  public simplifyText() {
+    console.log("simplifying...", this.text);
+    this.simpleService.getSimplifiedText(this.text).subscribe(res => {
+      console.log(res);
+    });
+  }
 }
