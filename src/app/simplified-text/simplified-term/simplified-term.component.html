@@ -1,7 +1,7 @@
-<ion-button color="primary" (click)="toggleDefinition">
+<ion-button color="primary" (click)="toggleDefinition()">
   {{term.semplificazione || term.testo}}
 </ion-button>
-<div *ngIf="showDefinition">
+<div padding *ngIf="showDefinition">
   <div *ngIf="term.semplificazione">
     <strong>{{term.testo}}</strong>
   </div>
