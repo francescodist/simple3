@@ -6,7 +6,7 @@ import { SimplifiedTextPage } from './simplified-text.page';
 const routes: Routes = [
   {
     path: '',
-    component: SimplifiedTextPage
+    component: SimplifiedTextPage,
   }
 ];
 

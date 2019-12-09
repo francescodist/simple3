@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SimplifiedResult, SimplifiedTerm } from '../models/simplified-term';
+import { SimpleService } from '../services/simple.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-simplified-text',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SimplifiedTextPage implements OnInit {
 
-  constructor() { }
+  public result: SimplifiedTerm[];
+
+  constructor(private simpleService: SimpleService) { }
 
   ngOnInit() {
+    this.result = this.simpleService.getResult();
   }
 
 }
