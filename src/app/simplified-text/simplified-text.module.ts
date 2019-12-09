@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SimplifiedTextPageRoutingModule } from './simplified-text-routing.module';
 
 import { SimplifiedTextPage } from './simplified-text.page';
+import { SimplifiedTermComponent } from './simplified-term/simplified-term.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SimplifiedTextPage } from './simplified-text.page';
     IonicModule,
     SimplifiedTextPageRoutingModule
   ],
-  declarations: [SimplifiedTextPage]
+  declarations: [SimplifiedTextPage, SimplifiedTermComponent]
 })
 export class SimplifiedTextPageModule {}
