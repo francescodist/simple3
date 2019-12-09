@@ -10,6 +10,7 @@ import { SimplifiedResult } from '../models/simplified-term';
 })
 export class TextPage {
   public text = "";
+  public languages = ["IT","EN"];
   constructor(private simpleService: SimpleService, private router: Router, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
       this.text = params.text || "";
@@ -27,5 +28,9 @@ export class TextPage {
       this.simpleService.setResult(result);
       this.router.navigate(['simplified-text']);
     });
+  }
+
+  public changeLanguage() {
+    this.languages.push(this.languages.shift());
   }
 }

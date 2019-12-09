@@ -14,7 +14,10 @@
 </ion-content>
 
 <ion-footer class="button-container">
-  <ion-button (click)="simplifyText()" expand="block">
+  <ion-button (click)="simplifyText()" class="simplify-button">
     Semplifica
+  </ion-button>
+  <ion-button color="secondary" class="language-button" (click)="changeLanguage()">
+    {{languages[0]}}
   </ion-button>
 </ion-footer>
