@@ -27,7 +27,11 @@ export class CameraService {
         ...this.options,
         sourceType
       });
-    } catch (e) {}
+      const result: any = await this.ocrPicture(picture).toPromise();
+      return result.ParsedResults[0].ParsedText;
+    } catch (e) {
+      return null;
+    }
   }
 
   public ocrPicture(imageData: string) {

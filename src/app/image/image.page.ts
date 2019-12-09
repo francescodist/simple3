@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CameraService } from '../services/camera.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-image',
@@ -7,6 +9,15 @@ import { Component } from '@angular/core';
 })
 export class ImagePage {
 
-  constructor() {}
+  constructor(private cameraService: CameraService, private route: Router) {}
+
+  public async getImage(source: "gallery" | "camera") {
+    const text = await this.cameraService.getPicture(source);
+    if(text) {
+      this.route.navigate(['tabs','text'], {queryParams: {text}});
+    } else {
+      this.route.navigate(['tabs','text'], {queryParams: {text: "ocr fallito"}});
+    }
+  }
 
 }
