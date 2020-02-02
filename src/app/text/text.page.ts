@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectorRef } from "@angular/core";
 import { SimpleService } from "../services/simple.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { SimplifiedResult } from '../models/simplified-term';
@@ -11,9 +11,15 @@ import { SimplifiedResult } from '../models/simplified-term';
 export class TextPage {
   public text = "";
   public languages = ["IT","EN"];
-  constructor(private simpleService: SimpleService, private router: Router, private route: ActivatedRoute) {
+  constructor(private simpleService: SimpleService, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {
     this.route.queryParams.subscribe(params => {
-      this.text = params.text || "";
+      if(params.text) {
+        setTimeout(() => {
+          this.text = params.text || "";
+          this.cd.detectChanges();
+          this.router.navigate(['']);
+        }, 0)
+      }      
     })
   }
 
