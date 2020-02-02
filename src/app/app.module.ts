@@ -11,6 +11,7 @@ import { AppComponent } from "./app.component";
 import { HttpClientModule } from "@angular/common/http";
 
 import {Camera} from "@ionic-native/camera/ngx"
+import { SpeechRecognition } from "@ionic-native/speech-recognition/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +26,8 @@ import {Camera} from "@ionic-native/camera/ngx"
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Camera
+    Camera,
+    SpeechRecognition
   ],
   bootstrap: [AppComponent]
 })

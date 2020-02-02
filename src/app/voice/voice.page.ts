@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { VoiceService } from '../services/voice.service';
 
 @Component({
   selector: 'app-voice',
@@ -7,10 +8,11 @@ import { Component } from '@angular/core';
 })
 export class VoicePage {
   isRecording = false;
-  constructor() {}
+  constructor(private voiceService: VoiceService) {}
 
   public startRecording() {
     this.isRecording = true;
+    this.voiceService.startRecording()
   }
 
   public stopRecording() {
