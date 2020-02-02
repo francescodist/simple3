@@ -1,1 +1,55 @@
 
+@keyframes pulsation {
+    0% {
+        opacity: 0
+    }
+    50% {
+        opacity: 1.0
+    }
+    100% {
+        opacity: 0
+    }
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.record-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .record-icon-container {
+        position: relative;
+        margin: auto auto 0 auto;
+        .record-icon {
+            font-size: 25vh;
+            transition: color 0.2s ease-out;
+        }
+        .record-alert {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 32px;
+            height: 32px;
+            border-radius: 32px;
+            background-color: #f04141;
+            animation: pulsation 1s ease-in-out 0s infinite;
+        }
+    }
+    
+    
+    .record-text {
+        margin: 16px auto auto auto;
+        color: #333333;
+        font-size: 20px;
+    }
+
+   
+}
+
+
+

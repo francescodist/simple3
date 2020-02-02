@@ -6,4 +6,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <div class="container">
+    <div class="record-container" (click)="isRecording ? stopRecording() : startRecording()">
+      <div class="record-icon-container">
+        <ion-icon class="record-icon" [color]="isRecording ? 'danger' : 'primary'" name="mic"></ion-icon>
+        <div *ngIf="isRecording" class="record-alert"></div>
+      </div>
+      
+      <div class="record-text">{{getRecordText()}}</div>
+
+    </div>
+    
+  </div>
+</ion-content>
