@@ -19,7 +19,7 @@ export class SimpleService {
     const headers = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*");
     return this.http.get<SimplifiedResult>(
-      "http://www.math.unipa.it/simplehealth/simple/service/ita",
+      "http://www.math.unipa.it/simplehealth/simple/service/ita/",
       { headers, params }
     );
   }
