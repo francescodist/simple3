@@ -14,13 +14,12 @@ export class SimpleService {
 
   public getSimplifiedText(text: string): Observable<SimplifiedResult> {
     const params = new HttpParams()
-      .set("textaraea", text)
+      .set("textaraea", text.split(/\n/).join(' '))
       .set("type", "json");
-    const headers = new HttpHeaders();
-    headers.append("Access-Control-Allow-Origin", "*");
+    const responseType = 'json'
     return this.http.get<SimplifiedResult>(
       "http://www.math.unipa.it/simplehealth/simple/service/ita/",
-      { headers, params }
+      { params, responseType }
     );
   }
 
@@ -30,5 +29,12 @@ export class SimpleService {
 
   public getResult(): SimplifiedTerm[] {
     return this.result[0].contenuto;
+  }
+
+  public getExampleText(ref: string) {
+    const params = new HttpParams()
+      .set("ref", ref);
+    const responseType = 'text';
+    return this.http.get("http://www.math.unipa.it/simplehealth/ita/simple/reports.php", {params, responseType});
   }
 }

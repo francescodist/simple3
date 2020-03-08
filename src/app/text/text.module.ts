@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { TextPage } from "./text.page";
+import { ExamplesList } from './examples/examples';
 
 @NgModule({
   imports: [

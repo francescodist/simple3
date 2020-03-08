@@ -12,10 +12,11 @@ import { HttpClientModule } from "@angular/common/http";
 
 import {Camera} from "@ionic-native/camera/ngx"
 import { SpeechRecognition } from "@ionic-native/speech-recognition/ngx";
+import { ExamplesList } from './text/examples/examples';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, ExamplesList],
+  entryComponents: [ExamplesList],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

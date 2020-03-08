@@ -1,7 +1,8 @@
 import { Component, ChangeDetectorRef } from "@angular/core";
 import { SimpleService } from "../services/simple.service";
 import { Router, ActivatedRoute } from '@angular/router';
-import { SimplifiedResult } from '../models/simplified-term';
+import { PopoverController } from '@ionic/angular';
+import { ExamplesList } from './examples/examples';
 
 @Component({
   selector: "app-text",
@@ -11,7 +12,8 @@ import { SimplifiedResult } from '../models/simplified-term';
 export class TextPage {
   public text = "";
   public languages = ["IT","EN"];
-  constructor(private simpleService: SimpleService, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {
+  public popover;
+  constructor(private popoverCtrl: PopoverController,private simpleService: SimpleService, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {
     this.route.queryParams.subscribe(params => {
       if(params.text) {
         setTimeout(() => {
@@ -30,13 +32,26 @@ export class TextPage {
       this.router.navigate(['simplified-text']);
     }, () => {
       //FOR TEST PURPOSES
-      const result: SimplifiedResult = [{"contenuto":[{"testo":"epistassi ","semplificazione":"Sanguinamento dal naso","definizione":"\n\r\n\rDef.CUI(C0014591):Detta anche rinorragia,o pi\u00f9 semplicemente sangue dal naso, l`epistassi pu\u00f2 verificarsi senza causa apparente (epistassi essenziale) o come sintomo di un`affezione locale o generale (epistassi secondaria).Il pi\u00f9 delle volte, specie in pazienti giovani, l`emorragia \u00e8 dovuta a rottura spontanea dei piccoli vasi della muscosa nasale, in seguito a irritazione o a piccoli traumi (raffreddore, manovre maldestre con le dita, riniti, modificazioni ormonali tipiche della pubert\u00e0 ecc.).Pi\u00f9 raramente, e soprattutto negli anziani, il sangue dal naso pu\u00f2 essere sintomo di un malessere severo.Tratto da http:\/\/www.my-personaltrainer.it\/salute\/sangue-naso-epistassi.html"},{"testo":"ciao ","semplificazione":"hawaii","definizione":null}]}];
-      this.simpleService.setResult(result);
-      this.router.navigate(['simplified-text']);
+      
     });
   }
 
   public changeLanguage() {
     this.languages.push(this.languages.shift());
+  }
+
+  public clearText() {
+    this.text = '';
+  }
+
+  public async getExampleText() {
+    const popover = await this.popoverCtrl.create({
+      component: ExamplesList
+    });
+    await popover.present();
+    const {data} = await popover.onDidDismiss()
+    this.simpleService.getExampleText(data).subscribe(text => {
+      this.text = text || '';
+    })
   }
 }
