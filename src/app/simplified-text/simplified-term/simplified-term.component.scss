@@ -1,0 +1,14 @@
+@import '../../../theme/variables.scss';
+
+.open-definition {
+    background: var(--ion-color-primary, #3880ff);
+    color: white;
+    padding: 4px 8px; 
+    &.title {
+        border-radius: 4px 4px 0 0;
+        width: fit-content;
+    }
+    &.definition {
+        border-radius: 0 4px 4px 4px;
+    }
+}

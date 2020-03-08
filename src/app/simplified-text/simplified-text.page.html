@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content  class="ion-padding">
   <ng-container *ngFor="let term of result">
     <ng-container *ngIf="!term.semplificazione && !term.definizione">
       {{term.testo}}

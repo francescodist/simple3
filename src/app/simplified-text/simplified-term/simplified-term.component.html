@@ -1,9 +1,15 @@
-<a color="primary" (click)="toggleDefinition()">
+<a *ngIf="!showDefinition" color="primary" (click)="toggleDefinition()">
   {{term.semplificazione || term.testo}}
 </a>
-<div padding *ngIf="showDefinition">
-  <div *ngIf="term.semplificazione">
-    <strong>{{term.testo}}</strong>
+<div *ngIf="showDefinition">
+  <div class="title open-definition"  (click)="toggleDefinition()">
+    {{term.semplificazione || term.testo}}
   </div>
-  {{term.definizione}}
+  <div class="definition open-definition">
+    <div *ngIf="term.semplificazione">
+      <strong>{{term.testo}}</strong>
+    </div>
+    {{term.definizione}}
+  </div>
 </div>
+
