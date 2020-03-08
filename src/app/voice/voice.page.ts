@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { VoiceService } from '../services/voice.service';
 import { Router } from '@angular/router';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-voice',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class VoicePage {
   isRecording = false;
-  constructor(private voiceService: VoiceService, private route: Router) {}
+  constructor(private voiceService: VoiceService, private route: Router, private languageService: LanguageService) {}
 
   public startRecording() {
     this.isRecording = true;
@@ -27,6 +28,11 @@ export class VoicePage {
   }
 
   public getRecordText(): string {
-    return this.isRecording ? 'Interrompi Registrazione' : 'Avvia Registrazione';
+    const key = this.isRecording ? 'stopRecording' : 'startRecording'
+    return this.getTemplate(key);
+  }
+
+  getTemplate(key: string): string {
+    return this.languageService.getTemplate('voice', key);
   }
 }

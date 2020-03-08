@@ -3,6 +3,7 @@ import { SimpleService } from "../services/simple.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { ExamplesList } from './examples/examples';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: "app-text",
@@ -11,9 +12,9 @@ import { ExamplesList } from './examples/examples';
 })
 export class TextPage {
   public text = "";
-  public languages = ["IT","EN"];
   public popover;
-  constructor(private popoverCtrl: PopoverController,private simpleService: SimpleService, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {
+  constructor(private popoverCtrl: PopoverController,private simpleService: SimpleService, private router: Router, 
+              private route: ActivatedRoute, private cd: ChangeDetectorRef, private languageService: LanguageService) {
     this.route.queryParams.subscribe(params => {
       if(params.text) {
         setTimeout(() => {
@@ -37,7 +38,11 @@ export class TextPage {
   }
 
   public changeLanguage() {
-    this.languages.push(this.languages.shift());
+    this.languageService.selectNextLanguage();
+  }
+
+  public getSelectedLanguage() {
+    return this.languageService.getSelectedLanguage();
   }
 
   public clearText() {
@@ -50,8 +55,13 @@ export class TextPage {
     });
     await popover.present();
     const {data} = await popover.onDidDismiss()
+    if(!data) return;
     this.simpleService.getExampleText(data).subscribe(text => {
       this.text = text || '';
     })
+  }
+
+  public getTemplate(key: string): string {
+    return this.languageService.getTemplate('text', key)
   }
 }

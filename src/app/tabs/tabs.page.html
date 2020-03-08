@@ -2,17 +2,17 @@
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="text">
       <ion-icon name="create"></ion-icon>
-      <ion-label>Testo</ion-label>
+      <ion-label>{{getTitle('text')}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="image">
       <ion-icon name="images"></ion-icon>
-      <ion-label>Immagine</ion-label>
+      <ion-label>{{getTitle('image')}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="voice">
       <ion-icon name="mic"></ion-icon>
-      <ion-label>Voce</ion-label>
+      <ion-label>{{getTitle('voice')}}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

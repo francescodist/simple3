@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Immagine
+      {{getTemplate('title')}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,6 +9,6 @@
 <ion-content></ion-content>
 
 <ion-footer class="button-container">
-  <ion-button color="primary" expand="block" (click)="getImage('camera')">Fotocamera</ion-button>
-  <ion-button color="primary" expand="block" (click)="getImage('gallery')">Galleria</ion-button>
+  <ion-button color="primary" expand="block" (click)="getImage('camera')">{{getTemplate('camera')}}</ion-button>
+  <ion-button color="primary" expand="block" (click)="getImage('gallery')">{{getTemplate('gallery')}}</ion-button>
 </ion-footer>

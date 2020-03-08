@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Testo
+      {{getTemplate('title')}}
     </ion-title>
     <ion-buttons slot="end">
       <ion-button *ngIf="text.length > 0" (click)="clearText()">
         <ion-icon  slot="icon-only" name="close"></ion-icon>
       </ion-button>
       <ion-button *ngIf="text.length === 0" (click)="getExampleText()">       
-        Esempi
+        {{getTemplate('examples')}}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -17,7 +17,7 @@
 <ion-content padding>
   <ion-textarea
     [(ngModel)]="text"
-    placeholder="Inserisci il testo da semplificare..."
+    [placeholder]="getTemplate('placeholder')"
     auto-grow="true"
     class="text"
   ></ion-textarea>
@@ -25,9 +25,9 @@
 
 <ion-footer class="button-container">
   <ion-button (click)="simplifyText()" class="simplify-button">
-    Semplifica
+    {{getTemplate('simplify')}}
   </ion-button>
   <ion-button color="secondary" class="language-button" (click)="changeLanguage()">
-    {{languages[0]}}
+    {{getSelectedLanguage()}}
   </ion-button>
 </ion-footer>
