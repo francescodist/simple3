@@ -9,12 +9,14 @@ const languageTemplates = {
     title: {IT: 'Testo', EN: 'Text'},
     examples: {IT: 'ESEMPI', EN: 'EXAMPLES'},
     placeholder: {IT: 'Inserisci qui il testo da semplificare...', EN: 'Insert here the text to simplify...'},
-    simplify: {IT: 'Semplifica', EN: 'Simplify'}
+    simplify: {IT: 'Semplifica', EN: 'Simplify'},
+    simplifying: {IT: 'Semplifico...', EN: 'Simplifying...'}
   },
   image: {
     title: {IT: 'Immagine', EN: 'Picture'},
     camera: {IT: 'Fotocamera', EN: 'Camera'},
-    gallery: {IT: 'Galleria', EN: 'Gallery'}
+    gallery: {IT: 'Galleria', EN: 'Gallery'},
+    ocr: {IT: 'Estraggo testo da immagine...', EN: 'Extracting text from image...'}
   },
   voice: {
     title: {IT: 'Voce', EN: 'Voice'},
@@ -23,7 +25,8 @@ const languageTemplates = {
   },
   examples: {
     title: {IT: 'Scegli Esempio', EN: 'Choose Example'},
-    example: {IT: 'Esempio', EN: 'Example'}
+    example: {IT: 'Esempio', EN: 'Example'},
+    loading: {IT: 'Carico Esempio...', EN: 'Loading Example...'}
   }
 }
 

@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { LoadingService } from './loading.service';
+import { LanguageService } from './language.service';
 
 @Injectable({
   providedIn: "root"
@@ -8,7 +10,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class CameraService {
   options: CameraOptions;
 
-  constructor(private camera: Camera, private http: HttpClient) {
+  constructor(private camera: Camera, private http: HttpClient, private loadingService: LoadingService,
+              private languageService: LanguageService) {
     this.options = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -28,7 +31,9 @@ export class CameraService {
         ...this.options,
         sourceType
       });
+      this.loadingService.startLoading({message: this.languageService.getTemplate('image', 'ocr')})
       const result: any = await this.ocrPicture(picture).toPromise();
+      this.loadingService.stopLoading();
       return result.ParsedResults[0].ParsedText;
     } catch (e) {
       return null;
