@@ -10,7 +10,7 @@ export class SimpleService {
 
   private result: SimplifiedResult;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public getSimplifiedText(text: string): Observable<SimplifiedResult> {
     const params = new HttpParams()
@@ -18,7 +18,7 @@ export class SimpleService {
       .set("type", "json");
     const responseType = 'json'
     return this.http.get<SimplifiedResult>(
-      "http://www.math.unipa.it/simplehealth/simple/service/ita/",
+      "https://www.math.unipa.it/simplehealth/simple/service/ita/",
       { params, responseType }
     );
   }
@@ -35,6 +35,6 @@ export class SimpleService {
     const params = new HttpParams()
       .set("ref", ref);
     const responseType = 'text';
-    return this.http.get("http://www.math.unipa.it/simplehealth/ita/simple/reports.php", {params, responseType});
+    return this.http.get("https://www.math.unipa.it/simplehealth/ita/simple/reports.php", { params, responseType });
   }
 }
