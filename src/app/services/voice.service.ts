@@ -3,12 +3,13 @@ import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { Observable } from 'rxjs';
+import { LanguageService } from './language.service';
 
 @Injectable({
-  providedIn: "root"
+    providedIn: "root"
 })
 export class VoiceService {
-    constructor(private speechRecognition: SpeechRecognition) {
+    constructor(private speechRecognition: SpeechRecognition, private languageService: LanguageService) {
         this.speechRecognition.hasPermission()
             .then((hasPermission: boolean) => {
                 if (!hasPermission) {
@@ -18,7 +19,8 @@ export class VoiceService {
     }
 
     public startRecording(): Observable<string[]> {
-        return this.speechRecognition.startListening();
+        const language = this.languageService.getSelectedLanguage() === "IT" ? "it-IT" : "en-US";
+        return this.speechRecognition.startListening({ language });
     }
 
     public stopRecording() {
