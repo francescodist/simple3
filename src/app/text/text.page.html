@@ -4,10 +4,10 @@
       {{getTemplate('title')}}
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button *ngIf="text.length > 0" (click)="clearText()">
-        <ion-icon  slot="icon-only" name="close"></ion-icon>
+      <ion-button *ngIf="getText().length > 0" (click)="clearText()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
-      <ion-button *ngIf="text.length === 0" (click)="getExampleText()">       
+      <ion-button *ngIf="getText().length === 0" (click)="getExampleText()">
         {{getTemplate('examples')}}
       </ion-button>
     </ion-buttons>
@@ -15,12 +15,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-textarea
-    [(ngModel)]="text"
-    [placeholder]="getTemplate('placeholder')"
-    auto-grow="true"
-    class="text"
-  ></ion-textarea>
+  <ion-textarea [value]="getText()" (ionChange)="onTextChange($event)" [placeholder]="getTemplate('placeholder')"
+    class="text" auto-grow="true">
+  </ion-textarea>
 </ion-content>
 
 <ion-footer class="button-container">

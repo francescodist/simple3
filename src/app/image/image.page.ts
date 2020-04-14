@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CameraService } from '../services/camera.service';
 import { Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
+import { TextService } from '../services/text.service';
 
 @Component({
   selector: 'app-image',
@@ -10,14 +11,17 @@ import { LanguageService } from '../services/language.service';
 })
 export class ImagePage {
 
-  constructor(private cameraService: CameraService, private route: Router, private languageService: LanguageService) {}
+  constructor(private cameraService: CameraService, private route: Router, private languageService: LanguageService,
+    private textService: TextService) { }
 
   public async getImage(source: "gallery" | "camera") {
     const text = await this.cameraService.getPicture(source);
-    if(text) {
-      this.route.navigate(['tabs','text'], {queryParams: {text}});
+    if (text) {
+      this.textService.setText(text);
+      this.route.navigate(['tabs', 'text']);
     } else {
-      this.route.navigate(['tabs','text'], {queryParams: {text: "ocr fallito"}});
+      this.textService.setText('ocr fallito');
+      this.route.navigate(['tabs', 'text']);
     }
   }
 

@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SimplifiedResult, SimplifiedTerm } from "../models/simplified-term";
 import { LanguageService, Language } from './language.service';
+import { TextService } from './text.service';
 
 @Injectable({
   providedIn: "root"
@@ -16,12 +17,12 @@ export class SimpleService {
     EN: 'eng'
   }
 
-  constructor(private http: HttpClient, private languageService: LanguageService) { }
+  constructor(private http: HttpClient, private languageService: LanguageService, private textService: TextService) { }
 
-  public getSimplifiedText(text: string): Observable<SimplifiedResult> {
+  public getSimplifiedText(): Observable<SimplifiedResult> {
     const language = this.languageMap[this.languageService.getSelectedLanguage()];
     const params = new HttpParams()
-      .set("textaraea", text.split(/\n/).join(' '))
+      .set("textaraea", this.textService.getText().split(/\n/).join(' '))
       .set("type", "json");
     const responseType = 'json'
     return this.http.get<SimplifiedResult>(
