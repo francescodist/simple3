@@ -13,10 +13,15 @@ export class SimplifiedTermComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public toggleDefinition() {
     this.showDefinition = !this.showDefinition;
+  }
+
+  public getDefinition(definition: any) {
+    var doc = new DOMParser().parseFromString(definition, 'text/html');
+    return doc.body.textContent || "";
   }
 
 }

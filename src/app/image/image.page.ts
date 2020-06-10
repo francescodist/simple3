@@ -19,9 +19,6 @@ export class ImagePage {
     if (text) {
       this.textService.setText(text);
       this.route.navigate(['tabs', 'text']);
-    } else {
-      this.textService.setText('ocr fallito');
-      this.route.navigate(['tabs', 'text']);
     }
   }
 

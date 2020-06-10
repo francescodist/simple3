@@ -22,13 +22,12 @@ export class SimpleService {
   public getSimplifiedText(): Observable<SimplifiedResult> {
     const language = this.languageMap[this.languageService.getSelectedLanguage()];
     const params = new HttpParams()
-      .set("textaraea", this.textService.getText().split(/\n/).join(' '))
       .set("type", "json");
-    const responseType = 'json'
-    return this.http.get<SimplifiedResult>(
-      `https://www.math.unipa.it/simplehealth/simple/service/${language}/`,
-      { params, responseType }
-    );
+    const body = new FormData();
+    body.append('textaraea', this.textService.getText().split(/\n/).join(' %0A '));
+    const responseType = 'json';
+    const simpleServiceURL = `http://193.1.97.172/simplehealth/simple3/service/${language}/`
+    return this.http.post<any>(simpleServiceURL, body, { params, responseType });
   }
 
   public setResult(result: SimplifiedResult) {

@@ -6,6 +6,8 @@ import { ExamplesList } from './examples/examples';
 import { LanguageService } from '../services/language.service';
 import { LoadingService } from '../services/loading.service';
 import { TextService } from '../services/text.service';
+import { HttpClient } from '@angular/common/http';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: "app-text",
@@ -14,19 +16,25 @@ import { TextService } from '../services/text.service';
 })
 export class TextPage {
   public popover;
+  private shouldScroll = true;
   constructor(private popoverCtrl: PopoverController, private simpleService: SimpleService,
     private router: Router, private languageService: LanguageService, private cd: ChangeDetectorRef,
-    private loadingService: LoadingService, private textService: TextService) { }
+    private loadingService: LoadingService, private textService: TextService, private http: HttpClient,
+    private alertService: AlertService) { }
 
   public simplifyText() {
     this.loadingService.startLoading({ message: this.getTemplate('simplifying') });
     this.simpleService.getSimplifiedText().subscribe(result => {
-      this.simpleService.setResult(result);
-      setTimeout(() => {
-        this.router.navigate(['simplified-text']);
-      }, 0)
-    }, () => {
-      //FOR TEST PURPOSES
+      if (result && result[0] && result[0].contenuto) {
+        this.simpleService.setResult(result);
+        setTimeout(() => {
+          this.router.navigate(['simplified-text']);
+        }, 0)
+      } else {
+        this.alertService.showError('noResultSimplify');
+      }
+    }, e => {
+      this.alertService.showError('errorSimplify');
     }).add(() => this.loadingService.stopLoading());
   }
 
@@ -51,16 +59,19 @@ export class TextPage {
   }
 
   public async getExampleText() {
+
+    const lang = this.languageService.getSelectedLanguage() === "IT" ? "ita/" : "";
+    this.loadingService.startLoading({ message: this.languageService.getTemplate('examples', 'loading') })
+    const res = await this.http.get<any>(`http://193.1.97.172/simplehealth/simple3/service/report/${lang}?type=json`).toPromise();
+    this.loadingService.stopLoading();
     const popover = await this.popoverCtrl.create({
-      component: ExamplesList
+      component: ExamplesList,
+      componentProps: { examples: res[0].contents }
     });
     await popover.present();
     const { data } = await popover.onDidDismiss()
     if (!data) return;
-    this.loadingService.startLoading({ message: this.languageService.getTemplate('examples', 'loading') })
-    this.simpleService.getExampleText(data).subscribe(text => {
-      this.setText(text || '');
-    }).add(() => (this.loadingService.stopLoading()));
+    this.setText(data.Text || '');
   }
 
   public getTemplate(key: string): string {
@@ -77,5 +88,26 @@ export class TextPage {
 
   public onTextChange(event: Event) {
     this.setText((event.target as HTMLTextAreaElement).value);
+  }
+
+
+  public offsetScroll(e: any) {
+    const { offsetY } = e;
+    const textarea = document.getElementsByTagName('textarea')[0];
+
+    setTimeout(() => {
+      if (this.shouldScroll) {
+        const { offsetHeight } = textarea;
+        const { lineHeight } = window.getComputedStyle(textarea);
+        const lines = Math.ceil(offsetY / parseInt(lineHeight));
+        const cursorPosition = lines * parseInt(lineHeight);
+        textarea.scrollTop = cursorPosition > offsetHeight ? cursorPosition - offsetHeight + textarea.scrollTop : textarea.scrollTop;
+        this.shouldScroll = false;
+      }
+    }, 200)
+  }
+
+  public enableOffsetScroll() {
+    this.shouldScroll = true;
   }
 }

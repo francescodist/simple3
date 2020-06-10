@@ -27,6 +27,15 @@ const languageTemplates = {
     title: { IT: 'Scegli Esempio', EN: 'Choose Example' },
     example: { IT: 'Esempio', EN: 'Example' },
     loading: { IT: 'Carico Esempio...', EN: 'Loading Example...' }
+  },
+  simplifiedText: {
+    title: { IT: 'Testo Semplificato', EN: 'Simplified Text' }
+  }, errors: {
+    header: { IT: 'Errore', EN: 'Error' },
+    cameraFailedOcr: { IT: "Errore nell'analisi dell'immagine", EN: "An error occured while analyzing the image" },
+    cameraNoPic: { IT: "Nessuna immagine selezionata", EN: "No image selected" },
+    noResultSimplify: { IT: "Impossibile ottenere un risultato dal servizio SIMPLE", EN: "Couldn't get any result from the SIMPLE service" },
+    errorSimplify: { IT: "Errore nel servizio SIMPLE", EN: "Error in the simple service" }
   }
 }
 

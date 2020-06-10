@@ -15,9 +15,14 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-textarea [value]="getText()" (ionChange)="onTextChange($event)" [placeholder]="getTemplate('placeholder')"
-    class="text" auto-grow="true">
-  </ion-textarea>
+  <input type="file" name="upload" accept="application/pdf"
+    style="position: absolute; top: -200px; visibility: hidden;" />
+  <div class="textarea-container" (click)="offsetScroll($event)">
+    <ion-textarea [value]="getText()" (ionChange)="onTextChange($event)" [placeholder]="getTemplate('placeholder')"
+      class="text" (ionFocus)="enableOffsetScroll()">
+    </ion-textarea>
+  </div>
+
 </ion-content>
 
 <ion-footer class="button-container">

@@ -1,4 +1,4 @@
 <ion-list lines='full'>
-    <ion-list-header>{{getTemplate('title')}}</ion-list-header>
-    <ion-item *ngFor="let ref of exampleRefs"(click)="close(ref)">{{getTemplate('example')}} {{ref}}</ion-item>
-  </ion-list>
+  <ion-list-header>{{getTemplate('title')}}</ion-list-header>
+  <ion-item *ngFor="let ref of exampleRefs" (click)="close(ref)">{{ref.Title}}</ion-item>
+</ion-list>

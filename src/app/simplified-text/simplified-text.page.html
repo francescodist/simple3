@@ -3,15 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Testo Semplificato</ion-title>
+    <ion-title>{{getTemplate('title')}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content  class="ion-padding">
+<ion-content class="ion-padding">
   <ng-container *ngFor="let term of result">
-    <ng-container *ngIf="!term.semplificazione && !term.definizione">
-      {{term.testo}}
-    </ng-container>
+    <span *ngIf="!term.semplificazione && !term.definizione"
+      style="white-space: pre-wrap;">{{getDecodedText(term.testo)}}</span>
     <app-simplified-term [term]="term" *ngIf="term.semplificazione || term.definizione"></app-simplified-term>
   </ng-container>
 </ion-content>

@@ -12,13 +12,20 @@ export class LoadingService {
   constructor(private loadingController: LoadingController) { }
 
   public async startLoading(options: LoadingOptions = {}) {
-    options.duration = options.duration || 10000;
+    options.duration = options.duration || 9990000;
+    try {
+      await this.loading.dismiss();
+    } catch { }
     this.loading = await this.loadingController.create(options);
     this.loading.present();
   }
 
   public stopLoading() {
-    this.loading.dismiss();
+    setTimeout(() => {
+      try {
+        this.loading.dismiss();
+      } catch { }
+    }, 50)
   }
 
 }

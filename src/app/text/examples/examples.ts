@@ -1,14 +1,15 @@
 import { Component } from "@angular/core";
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, NavParams } from '@ionic/angular';
 import { LanguageService } from 'src/app/services/language.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     templateUrl: './examples.html'
 })
 export class ExamplesList {
-    exampleRefs: string[];
-    constructor(public popoverCtrl: PopoverController, private languageService: LanguageService) {
-        this.exampleRefs = new Array(10).fill(1).map((n, index) => n + index + '');
+    exampleRefs: string[] = [];
+    constructor(public popoverCtrl: PopoverController, private languageService: LanguageService, public http: HttpClient, public navParams: NavParams) {
+        this.exampleRefs = navParams.get("examples");
     }
 
     close(option: string) {
@@ -18,4 +19,6 @@ export class ExamplesList {
     getTemplate(key: string): string {
         return this.languageService.getTemplate('examples', key);
     }
+
+
 }
