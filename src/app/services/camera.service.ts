@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { LoadingService } from './loading.service';
 import { LanguageService } from './language.service';
 import { AlertService } from './alert.service';
+import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root"
@@ -34,15 +36,15 @@ export class CameraService {
         ...this.options,
         sourceType
       });
-      this.loadingService.startLoading({ message: this.languageService.getTemplate('image', 'ocr'), duration: 60000 })
-      const text: any = await this.ocrPicture(picture);
+      const cancel = await this.loadingService.startLoading({ message: this.languageService.getTemplate('image', 'ocr'), duration: 60000 })
+      const text: any = await (await this.ocrPicture(picture)).pipe(takeUntil(cancel)).toPromise();
       this.loadingService.stopLoading();
       return text;
     } catch (e) {
       if (e === "No Image Selected") {
         this.alertService.showError('cameraNoPic');
       } else {
-        this.alertService.showError('cameraNoOcr');
+        this.alertService.showError('cameraFailedOcr');
       }
       this.loadingService.stopLoading();
       return null;
@@ -53,7 +55,6 @@ export class CameraService {
     let base64Image = 'data:image/jpeg;base64,' + imageUri;
     let data = { image: base64Image };
     const language = this.languageService.getSelectedLanguage() === 'IT' ? 'ita' : 'eng';
-    const { text } = await this.http.post<{ text: string }>(`http://193.1.97.172/ocr/${language}`, data).toPromise();
-    return text;
+    return this.http.post<{ text: string }>(`http://193.1.97.172/ocr/${language}`, data);
   }
 }

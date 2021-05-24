@@ -28,6 +28,10 @@ const languageTemplates = {
     example: { IT: 'Esempio', EN: 'Example' },
     loading: { IT: 'Carico Esempio...', EN: 'Loading Example...' }
   },
+  pdf: {
+    title: { IT: "PDF", EN: "PDF" },
+    loading: { IT: 'Estraggo testo da PDF...', EN: 'Extracting text from PDF...' }
+  },
   simplifiedText: {
     title: { IT: 'Testo Semplificato', EN: 'Simplified Text' }
   }, errors: {
@@ -35,7 +39,8 @@ const languageTemplates = {
     cameraFailedOcr: { IT: "Errore nell'analisi dell'immagine", EN: "An error occured while analyzing the image" },
     cameraNoPic: { IT: "Nessuna immagine selezionata", EN: "No image selected" },
     noResultSimplify: { IT: "Impossibile ottenere un risultato dal servizio SIMPLE", EN: "Couldn't get any result from the SIMPLE service" },
-    errorSimplify: { IT: "Errore nel servizio SIMPLE", EN: "Error in the simple service" }
+    errorSimplify: { IT: "Errore nel servizio SIMPLE", EN: "Error in the simple service" },
+    errorPdf: { IT: "Impossibile analizzare il PDF selezionato", EN: "Couldn't process the selected PDF" }
   }
 }
 

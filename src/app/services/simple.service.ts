@@ -24,7 +24,7 @@ export class SimpleService {
     const params = new HttpParams()
       .set("type", "json");
     const body = new FormData();
-    body.append('textaraea', this.textService.getText().split(/\n/).join(' %0A '));
+    body.append('textaraea', this.textService.getText());
     const responseType = 'json';
     const simpleServiceURL = `http://193.1.97.172/simplehealth/simple3/service/${language}/`
     return this.http.post<any>(simpleServiceURL, body, { params, responseType });

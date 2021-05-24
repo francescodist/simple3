@@ -18,6 +18,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: "pdf",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("../pdf/pdf.module").then(m => m.PdfPageModule)
+          }
+        ]
+      },
+      {
         path: "image",
         children: [
           {
@@ -55,4 +65,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

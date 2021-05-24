@@ -5,6 +5,11 @@
       <ion-label>{{getTitle('text')}}</ion-label>
     </ion-tab-button>
 
+    <ion-tab-button tab="pdf" (focus)="blur($event)" (click)="selectPdf($event)">
+      <ion-icon name="document" style="fill: rgb(102,102,102);"></ion-icon>
+      <ion-label style="color: rgb(102,102,102)">{{getTitle('pdf')}}</ion-label>
+    </ion-tab-button>
+
     <ion-tab-button tab="image">
       <ion-icon name="images"></ion-icon>
       <ion-label>{{getTitle('image')}}</ion-label>
@@ -16,3 +21,8 @@
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
+
+<form style="display: none;" id="pdfForm" enctype="multipart/form-data" (submit)="getTextFromPdf($event)">
+  <input type="file" accept="application/pdf" id="pdfInput" name="pdf" (change)="submit()">
+  <input type="submit" id="pdfSubmit">
+</form>

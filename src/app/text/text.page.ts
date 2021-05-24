@@ -8,6 +8,8 @@ import { LoadingService } from '../services/loading.service';
 import { TextService } from '../services/text.service';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from '../services/alert.service';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: "app-text",
@@ -22,9 +24,9 @@ export class TextPage {
     private loadingService: LoadingService, private textService: TextService, private http: HttpClient,
     private alertService: AlertService) { }
 
-  public simplifyText() {
-    this.loadingService.startLoading({ message: this.getTemplate('simplifying') });
-    this.simpleService.getSimplifiedText().subscribe(result => {
+  public async simplifyText() {
+    const cancel = await this.loadingService.startLoading({ message: this.getTemplate('simplifying') });
+    this.simpleService.getSimplifiedText().pipe(takeUntil(cancel)).subscribe(result => {
       if (result && result[0] && result[0].contenuto) {
         this.simpleService.setResult(result);
         setTimeout(() => {
@@ -59,10 +61,9 @@ export class TextPage {
   }
 
   public async getExampleText() {
-
     const lang = this.languageService.getSelectedLanguage() === "IT" ? "ita/" : "";
-    this.loadingService.startLoading({ message: this.languageService.getTemplate('examples', 'loading') })
-    const res = await this.http.get<any>(`http://193.1.97.172/simplehealth/simple3/service/report/${lang}?type=json`).toPromise();
+    const cancel = await this.loadingService.startLoading({ message: this.languageService.getTemplate('examples', 'loading') })
+    const res = await this.http.get<any>(`http://193.1.97.172/simplehealth/simple3/service/report/${lang}?type=json`).pipe(takeUntil(cancel)).toPromise();
     this.loadingService.stopLoading();
     const popover = await this.popoverCtrl.create({
       component: ExamplesList,

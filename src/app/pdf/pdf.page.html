@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{getTemplate('title')}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content></ion-content>
+
+<form style="display: none;" id="pdfForm" enctype="multipart/form-data" (submit)="getTextFromPdf($event)">
+    <input type="file" accept="application/pdf" id="pdfInput" name="pdf" (change)="submit()">
+    <input type="submit" id="pdfSubmit">
+</form>
