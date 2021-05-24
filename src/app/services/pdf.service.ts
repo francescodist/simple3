@@ -21,7 +21,7 @@ export class PdfService {
         }
         const language = this.languageService.getSelectedLanguage() === "IT" ? "ita" : "eng";
         const cancel = await this.loadingService.startLoading({ message: this.languageService.getTemplate('pdf', 'loading') });
-        this.http.post(`http://193.1.97.172/ocr/pdf/${language}`, formData).pipe(takeUntil(cancel)).subscribe(({ text }: { text: string }) => {
+        this.http.post(`http://cohealth.ivi.ie/ocr/pdf/${language}`, formData).pipe(takeUntil(cancel)).subscribe(({ text }: { text: string }) => {
             this.textService.setText(text);
             this.loadingService.stopLoading();
             this.route.navigate(['tabs', 'text']);

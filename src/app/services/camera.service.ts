@@ -55,6 +55,6 @@ export class CameraService {
     let base64Image = 'data:image/jpeg;base64,' + imageUri;
     let data = { image: base64Image };
     const language = this.languageService.getSelectedLanguage() === 'IT' ? 'ita' : 'eng';
-    return this.http.post<{ text: string }>(`http://193.1.97.172/ocr/${language}`, data);
+    return this.http.post<{ text: string }>(`http://cohealth.ivi.ie/ocr/${language}`, data);
   }
 }
